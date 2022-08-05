@@ -1,4 +1,11 @@
-# Getting Started with Create React App
+# This is my first simple ReactJS App - to Progect Defense - Exam in SoftUni
+ 
+## Getting Started: 
+Hosting URL: https://firstproject-478b4.web.app
+Then open directory softUniPracticeServer with VSC,
+in terminal run server with command 'node server.js'.
+
+## Or getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
