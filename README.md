@@ -1,4 +1,4 @@
-# This is my first simple ReactJS App - to Progect Defense - Exam in SoftUni
+# Simple ReactJS App - to Progect Defense - Exam in SoftUni
  
 ## Getting Started: 
 Hosting URL: https://firstproject-478b4.web.app .
