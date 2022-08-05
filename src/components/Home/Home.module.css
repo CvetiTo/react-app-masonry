@@ -1,0 +1,20 @@
+
+.sidebar {
+	margin-left: -400px;
+	margin-top: 80px;
+}
+
+.title { 
+	font-size: 3.6rem;
+	letter-spacing: 2px; 
+	text-transform: uppercase; 
+}
+
+.description { 
+	color: #ff3946;
+	font-size: 1.4rem;
+}
+
+.container{
+	margin-left: -200px;
+}

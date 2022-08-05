@@ -1,0 +1,25 @@
+.counter{
+	margin-bottom: 16px;
+	
+}
+
+.down{
+	margin-right: 36px;
+	background-color:white ;
+	color: #ff3946;
+	border: none;
+	cursor: pointer;
+}
+.up{
+	margin-left: 36px;
+	background-color: white;
+	color: #006b6c;
+	border: none;
+	cursor: pointer;
+}
+.count{
+	background-color: white;
+	color: #bfc938;
+	border: none;
+	font-size: larger;
+}
