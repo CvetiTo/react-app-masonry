@@ -1,7 +1,14 @@
+.background {
+		background-image: url("https://cdn.pixabay.com/photo/2014/04/03/14/26/flora-312815_960_720.png");
+		background-repeat: no-repeat;
+		background-size: contain;
+		max-width: 100vw;
+		max-height: 100vh;				
+}
 
 .sidebar {
-	margin-left: -400px;
-	margin-top: 80px;
+	margin-left: 3.6rem;
+	margin-top: 2.5rem;
 }
 
 .title { 
@@ -16,5 +23,41 @@
 }
 
 .container{
-	margin-left: -200px;
+	text-align: center;
+	
+}
+
+.cards {
+	display: flex;
+	justify-content: center;
+	gap:1.2rem;
+	margin-left: 1.9rem;
+}
+
+.card h3{
+	text-align: center;
+	text-transform: uppercase;
+}
+.card img {
+	border-radius: 8px;
+}
+
+@media only screen and(max-width: 600px) {
+	.background {
+		max-width: 20px;
+		margin: 0 auto;
+	}
+	.sidebar {
+		margin-top: 2.5rem;
+	}
+	.title { 
+		font-size: 1.6rem;
+		letter-spacing: 2px; 
+		
+	}
+	.cards {
+		flex-wrap: wrap;
+		max-width: 300px;
+		
+	}
 }

@@ -6,7 +6,7 @@ import { register } from '../../services/userService.js';
 
 const Register = () => {
     const { userLoginHandler } = useContext(UserContext);
-    
+
     const [errors, setErrors] = useState({});
     const [values, setValues] = useState({
         firstName: '',
@@ -17,28 +17,30 @@ const Register = () => {
         age: '',
         tac: false,
     });
-    
+
     const changeHandler = (e) => {
         setValues(state => ({
             ...state,
             [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value
         }));
     };
-    
+
     const submitHandler = (e) => {
         e.preventDefault();
 
         // let values = Object.fromEntries(new FormData(e.target))
         // console.log(values);
-        
-       //if(values.password !== values.rePass) {
-       //    return;
-       //}
-        
-        register(values.firstName, values.lastName, values.email, values.password, values.age, values.tac)
+
+        if (values.password !== values.rePass) {
+            return;
+        }
+
+        register(values.firstName, values.lastName, 
+            values.email, values.password, values.age, 
+            values.tac)
             .then(userData => {
                 userLoginHandler(userData);
-                //navigate('/');
+
             })
             .catch((error) => {
                 console.log(error.massage);
@@ -57,7 +59,7 @@ const Register = () => {
             [e.target.name]: values[e.target.name] < minlimit,
         }));
     }
-    
+
     const isValidEmail = (e) => {
         let regex = /^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/.test(e.target.value);
         setErrors(state => ({
@@ -156,7 +158,7 @@ const Register = () => {
                             <input className={styles.tac} type="checkbox" name="tac" id="tac" checked={values.tac} onChange={changeHandler} />
                             <label className={styles.tac} htmlFor="tac"> I want to receive inspiration, marketing promotions and updates via email.</label>
                         </div>
-                        <input type="submit" className={styles.btn} value="Sign Up"/>
+                        <input type="submit" className={styles.btn} value="Sign Up" />
                         <button className={styles.btnClose} >Cansel</button>
                         <p className={styles.field}>
                             <span>

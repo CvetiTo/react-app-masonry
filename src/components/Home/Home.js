@@ -1,28 +1,35 @@
 import styles from './Home.module.css'
+import * as itemService from '../../services/itemService.js';
+import { useState, useEffect } from 'react';
+
 
 export const Home = () => {
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        itemService.getLastFive()
+            .then(result =>
+                setItems(result)
+            )
+    }, []);
+
     return (
-            <div style={{
-                backgroundImage: `url("https://cdn.pixabay.com/photo/2014/04/03/14/26/flora-312815_960_720.png")`,
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: 'contain',
-                width: '100vw',
-                height: '100vh',
-                marginLeft: '800px'
-
-            }}>
-                <div className={styles.sidebar}>
-
-                    <section id="welcome" className="content-box">
-                        <h1 className={styles.title}>welcome</h1>
-                        <p className={styles.description}>to your and friends ideas</p>
-                    </section>
-                </div>
-                <div className={styles.container}>
-                    <div className="body">
-                        <h1>Get your next idea from...</h1>
-                    </div>
-                </div>
+        <div className={styles.background}>
+            <section id="welcome" className={styles.sidebar}>
+                <h1 className={styles.title}>welcome</h1>
+                <p className={styles.description}>to your friends ideas</p>
+            </section>
+            <div className={styles.container}>
+                <h1>Get your next idea from...</h1>    
             </div>
+            <div className={styles.cards} >
+                {items.map((item, _id) => (
+                    <div className={styles.card} key={item._id}>
+                        <h3>{item.category}</h3>
+                        <img srcSet={item.img} />
+                    </div>
+                ))}
+            </div>
+        </div>
     );
 }

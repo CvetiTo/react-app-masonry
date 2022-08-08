@@ -6,7 +6,7 @@ import { Counter } from "./Counter.js";
 import Button from '@mui/material/Button';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import { useEffect } from 'react';
-
+import  DateObject  from "react-date-object";
 
 const Label = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -18,22 +18,14 @@ const Label = styled(Paper)(({ theme }) => ({
   borderBottomRightRadius: 0,
 }));
 
-export const SSRMasonry = ({ 
+export const SSRMasonry = ({
   items,
   deleteItemHandler
- }) => {
-  
+}) => {
 
-  useEffect(() => {
-    //console.log('Mount');
-
-    return () => {
-      //console.log('Unmount');
-    }
-  }, [])
 
   return (
-    <Box  sx={{ maxWidth: 1600, minHeight: 829, m:20 }}>
+    <Box sx={{ maxWidth: 1600, minHeight: 829, m: 20 }}>
       <Masonry columns={4} spacing={3}>
         {items.map((item, index) => (
           <div key={item._id}>
@@ -50,19 +42,20 @@ export const SSRMasonry = ({
               }}
             />
             <Label>
-            <section>
+              <section>
                 <h3>{item.title}</h3>
-            </section>
-            <footer>
-                <Counter />               
-                <Button variant="text" color='inherit'>See More<ReadMoreIcon/></Button>               
+                <h2>{new DateObject(item._createdOn).format("YYYY/MM/DD")}</h2>
+              </section>
+              <footer>
+                <Counter />
+                <Button variant="text" color='inherit'>See More<ReadMoreIcon /></Button>
                 <Button onClick={() => deleteItemHandler(item._id)} variant="text" color='error'>Delete</Button>
-                </footer>
-                
+              </footer>
+
               {`${index + 1} `}
-              </Label>   
+            </Label>
           </div>
-          
+
         ))}
       </Masonry>
     </Box>

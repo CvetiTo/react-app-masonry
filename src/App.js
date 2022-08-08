@@ -18,8 +18,8 @@ import { getAll } from './services/itemService.js';
 
 function App() {
   const [user, setUser] = useLocalStorage('user', {});
-  const [items, setItems, isLoading] = useState({});
-  const { removeItem, createItem } = useItemsApi();
+  const [items, setItems, isLoading] = useState([]);
+  const { removeItem } = useItemsApi();
   const navigate = useNavigate();
   
   const userLoginHandler = (userData) => {
@@ -43,8 +43,9 @@ function App() {
     .then(result => {
       setItems(result);
     });
-  },[]);
+  }, [] );
 
+  
   const deleteItemHandler = async (itemId) => {
     await removeItem(itemId)
     setItems(state => state.filter(x => x._id !== itemId));
