@@ -1,5 +1,5 @@
 import { ItemContext } from './contexts/ItemContext.js';
-import { UserContext } from './contexts/userContext.js';
+import { UserProvider } from './contexts/UserContext.js';
 import { useNavigate } from 'react-router-dom';
 import { Home } from './components/Home/Home.js';
 import { Header } from './components/Header/Header.js';
@@ -13,25 +13,16 @@ import { Routes, Route } from 'react-router-dom';
 import LogIn from './components/LoginRegister/LogIn.js';
 import Register from './components/LoginRegister/Register.js';
 import LogOut from './components/LoginRegister/LogOut.js';
-import { useLocalStorage } from './hooks/useLocalStorage.js';
+import PrivateRoute from './components/common/PrivateRoute.js';
 import { useEffect, useState } from 'react';
 import { getAll } from './services/itemService.js';
 
 function App() {
-  const [user, setUser] = useLocalStorage('user', {});
+  
   const [items, setItems, isLoading] = useState([]);
   
   const navigate = useNavigate();
   
-  const userLoginHandler = (userData) => {
-    setUser(userData);
-    navigate('/');
-  }
-
-  const userLogoutHandler = () => {
-    setUser({});
-  }
-
   const addItem =  (itemData) => {  
     setItems(state => [...state,
       itemData
@@ -58,7 +49,7 @@ const itemRemove = (itemId) => {
   
 
   return (
-    <UserContext.Provider value={{user, userLoginHandler, userLogoutHandler}}>
+    <UserProvider >
       <div>
         {isLoading
           ? <p>Loading...</p>
@@ -69,9 +60,9 @@ const itemRemove = (itemId) => {
           <Route path='/' element={<Home />} />
           <Route path='/catalog' element={<SSRMasonry items={items} />} />
           <Route path="/catalog/:itemId" element={<Details items={items} />} />
-          <Route path="/items/:itemId/edit" element={<Edit />} />
-          <Route path='/create' element={<Create />} />
-          <Route path='/logout' element={<LogOut />} />
+          <Route path="/items/:itemId/edit" element={<PrivateRoute><Edit /></PrivateRoute>} />
+          <Route path='/create' element={<PrivateRoute><Create /></PrivateRoute>} />
+          <Route path='/logout' element={<PrivateRoute><LogOut /></PrivateRoute>} />
           <Route path='/login' element={<LogIn />} />
           <Route path='/register' element={<Register />} />
           <Route path="*" element={<NotFound />} />
@@ -81,7 +72,7 @@ const itemRemove = (itemId) => {
 
         <Footer />
       </div>
-    </UserContext.Provider>
+    </UserProvider>
   );
 }
 

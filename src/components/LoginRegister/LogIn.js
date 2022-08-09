@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
-import { UserContext } from '../../contexts/userContext.js';
+import { UserContext } from '../../contexts/UserContext.js';
 import styles from './LogIn.module.css'
 import { login } from '../../services/userService.js';
 
@@ -13,7 +13,7 @@ const LogIn = () => {
         email: '',
         password: '',
     });
-    
+    const navigate = useNavigate();
     const changeHandler = (e) => {
         setValues(state => ({
             ...state,
@@ -27,6 +27,7 @@ const LogIn = () => {
         login(values.email, values.password)
         .then(userData => {
             userLoginHandler(userData);
+            navigate('/');
         })
         .catch((error) => {
             console.log(error.massage);

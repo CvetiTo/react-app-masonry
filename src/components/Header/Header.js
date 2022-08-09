@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import { UserContext } from '../../contexts/userContext.js';
+import { UserContext } from '../../contexts/UserContext.js';
 import styles from './Header.module.css'
 
 export const Header = () => {

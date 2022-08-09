@@ -12,20 +12,24 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Typography from '@mui/material/Typography';
+import { useUserContext } from '../../contexts/UserContext.js';
 
 
 export const Details = () => {
     const { itemId } = useParams([]);
     const { itemRemove } = useContext(ItemContext);
+    const { user } = useUserContext();
     const navigate = useNavigate();
     const [currentItem, setCurrentItem] = useState({});
+
+    const isOwner = currentItem._ownerId === user._id;
     
     useEffect(() => {
         getOne(itemId)
             .then(result => {
                 setCurrentItem(result);
             })
-    }, []);
+    }, [itemId]);
     //const item = items.find(x => x._id === itemId);
 
     const deleteItemHandler =  () => {
@@ -66,10 +70,13 @@ export const Details = () => {
                     {currentItem.description}
                 </Typography>
             </CardContent>
+            {isOwner && 
             <CardActions sx={{ml:50}}>
                 <Button size="small" variant="outlined" ><Link to={`/items/${itemId}/edit`} style={linkStyles} >Edit</Link></Button>
                 <Button onClick={() => deleteItemHandler(currentItem._id)} size="small" variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
             </CardActions>
+            }
+            
         </Card>
     );
 }

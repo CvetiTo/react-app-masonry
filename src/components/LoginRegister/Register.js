@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './LogIn.module.css'
 import { useState, useContext } from 'react';
-import { UserContext } from '../../contexts/userContext.js';
+import { UserContext } from '../../contexts/UserContext.js';
 import { register } from '../../services/userService.js';
 
 const Register = () => {
@@ -17,14 +17,7 @@ const Register = () => {
         age: '',
         tac: false,
     });
-
-    const changeHandler = (e) => {
-        setValues(state => ({
-            ...state,
-            [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value
-        }));
-    };
-
+    const navigate = useNavigate();
     const submitHandler = (e) => {
         e.preventDefault();
 
@@ -35,17 +28,26 @@ const Register = () => {
             return;
         }
 
-        register(values.firstName, values.lastName, 
-            values.email, values.password, values.age, 
+        register(values.firstName, values.lastName,
+            values.email, values.password, values.age,
             values.tac)
             .then(userData => {
                 userLoginHandler(userData);
-
+                navigate('/');
             })
             .catch((error) => {
                 console.log(error.massage);
             })
     };
+
+    const changeHandler = (e) => {
+        setValues(state => ({
+            ...state,
+            [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value
+        }));
+    };
+
+
 
     const minLength = (e, limit) => {
         setErrors(state => ({
