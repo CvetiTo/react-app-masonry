@@ -1,11 +1,10 @@
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Masonry from '@mui/lab/Masonry';
 import { Counter } from "./Counter.js";
-import Button from '@mui/material/Button';
-import ReadMoreIcon from '@mui/icons-material/ReadMore';
-import { useEffect } from 'react';
+
 import  DateObject  from "react-date-object";
 
 const Label = styled(Paper)(({ theme }) => ({
@@ -20,10 +19,12 @@ const Label = styled(Paper)(({ theme }) => ({
 
 export const SSRMasonry = ({
   items,
-  deleteItemHandler
 }) => {
 
-
+const linkStyles = {
+  textDecoration:'none',
+  color: 'inherit'
+}
   return (
     <Box sx={{ maxWidth: 1600, minHeight: 829, m: 20 }}>
       <Masonry columns={4} spacing={3}>
@@ -44,12 +45,11 @@ export const SSRMasonry = ({
             <Label>
               <section>
                 <h3>{item.title}</h3>
-                <h2>{new DateObject(item._createdOn).format("YYYY/MM/DD")}</h2>
+                <h2>{new DateObject(item._createdOn).format("DD.MM.YYYY")}</h2>
               </section>
               <footer>
                 <Counter />
-                <Button variant="text" color='inherit'>See More<ReadMoreIcon /></Button>
-                <Button onClick={() => deleteItemHandler(item._id)} variant="text" color='error'>Delete</Button>
+                <Link style={linkStyles}  to={`/catalog/${item._id}`}>See More</Link>  
               </footer>
 
               {`${index + 1} `}

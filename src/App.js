@@ -1,4 +1,3 @@
-import useItemsApi from './hooks/useItems.js';
 import { ItemContext } from './contexts/ItemContext.js';
 import { UserContext } from './contexts/userContext.js';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +5,8 @@ import { Home } from './components/Home/Home.js';
 import { Header } from './components/Header/Header.js';
 import { Footer } from './components/Footer/Footer.js';
 import { Create } from './components/Create/Create.js';
+import { Details } from './components/Details/Details.js';
+import { Edit } from './components/Edit/Edit.js';
 import { SSRMasonry } from './components/Catalog/SSRMasonry.js';
 import NotFound from './components/NotFound/NotFound.js'
 import { Routes, Route } from 'react-router-dom';
@@ -19,7 +20,7 @@ import { getAll } from './services/itemService.js';
 function App() {
   const [user, setUser] = useLocalStorage('user', {});
   const [items, setItems, isLoading] = useState([]);
-  const { removeItem } = useItemsApi();
+  
   const navigate = useNavigate();
   
   const userLoginHandler = (userData) => {
@@ -38,18 +39,23 @@ function App() {
     navigate('/catalog');
   }
 
+  const itemEdit = (itemId, itemData) => {
+    setItems(state => state.map(x => x._id === itemId ? itemData : x));
+}
+
+const itemRemove = (itemId) => {
+  setItems(state => state.filter(x => x._id !== itemId ))
+}
+
   useEffect(() => {
     getAll()
     .then(result => {
       setItems(result);
     });
-  }, [] );
+  },[]);
+
 
   
-  const deleteItemHandler = async (itemId) => {
-    await removeItem(itemId)
-    setItems(state => state.filter(x => x._id !== itemId));
-  }
 
   return (
     <UserContext.Provider value={{user, userLoginHandler, userLogoutHandler}}>
@@ -58,10 +64,12 @@ function App() {
           ? <p>Loading...</p>
           : <Header />}
 
-          <ItemContext.Provider value={{items, addItem}}>
+          <ItemContext.Provider value={{items, addItem, itemEdit, itemRemove }}>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/catalog' element={<SSRMasonry items={items} deleteItemHandler={deleteItemHandler} />} />
+          <Route path='/catalog' element={<SSRMasonry items={items} />} />
+          <Route path="/catalog/:itemId" element={<Details items={items} />} />
+          <Route path="/items/:itemId/edit" element={<Edit />} />
           <Route path='/create' element={<Create />} />
           <Route path='/logout' element={<LogOut />} />
           <Route path='/login' element={<LogIn />} />
