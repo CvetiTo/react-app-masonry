@@ -1,13 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext.js';
-import styles from './LogIn.module.css'
+import styles from './LogIn-Register.module.css'
 import { login } from '../../services/userService.js';
 
 
 const LogIn = () => {
     const { userLoginHandler } = useContext(UserContext);
-    
     const [errors, setErrors] = useState({});
     const [values, setValues] = useState({
         email: '',
@@ -62,7 +61,7 @@ const LogIn = () => {
                             className={styles.email} placeholder="Email address*"
                             value={values.email} onChange={changeHandler}
                                 onBlur={isValidEmail} />
-                        {errors.email &&
+                        {errors.email &&  
                             <p className={styles.formError}>Email is not valid!</p>
                         }        
                     </div>
@@ -72,16 +71,13 @@ const LogIn = () => {
                             className={styles.email} placeholder="Password*"
                             value={values.password} onChange={changeHandler}
                                 onBlur={(e) => minLength(e, 5)} />
-                        {errors.password &&
+                        { errors.password && 
                                 <p className={styles.formError}>
                                     Password should be at least 5 characters long!
                                 </p>
                             }
                     </div>
-
-                    <button className={styles.btn} type="submit" >Log in</button>
-                    <button type="button" 
-                    className={styles.btnClose} >Cansel</button>
+                    <button className={styles.btn} type="submit" disabled={errors.email || errors.password} >Log in</button>
                     <p className={styles.field}>
                         <span>
                             If you don't have profile go to <Link to="/register">SignUp</Link>

@@ -48,7 +48,7 @@ const linkStyles = {
                 <h2>{new DateObject(item._createdOn).format("DD.MM.YYYY")}</h2>
               </section>
               <footer>
-                <Counter />
+                <Counter likes={item.likes} />
                 <Link style={linkStyles}  to={`/catalog/${item._id}`}>See More</Link>  
               </footer>
 

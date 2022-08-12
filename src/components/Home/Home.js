@@ -29,7 +29,7 @@ export const Home = () => {
                 ?   items.map((item, _id) => ( 
                     <div className={styles.card} key={item._id}>
                         <h3>{item.category}</h3>
-                        <img srcSet={item.img} alt={item.title}/>
+                        <img src={item.img} alt={item.title}/>
                         <li><Link className={styles.btn} to={`/catalog/${item._id}`}>See More<ReadMoreIcon /></Link></li>  
                     </div>    
                 ))

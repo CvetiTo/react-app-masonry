@@ -1,12 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
-import styles from './LogIn.module.css'
-import { useState, useContext } from 'react';
-import { UserContext } from '../../contexts/UserContext.js';
+import styles from './LogIn-Register.module.css'
+import { useState} from 'react';
 import { register } from '../../services/userService.js';
+import { withUserContext } from '../../contexts/UserContext.js';
 
-const Register = () => {
-    const { userLoginHandler } = useContext(UserContext);
-
+const Register = ({ user }) => {
+    
     const [errors, setErrors] = useState({});
     const [values, setValues] = useState({
         firstName: '',
@@ -28,12 +27,9 @@ const Register = () => {
             return;
         }
 
-        register(values.firstName, values.lastName,
-            values.email, values.password, values.age,
-            values.tac)
-            .then(userData => {
-                userLoginHandler(userData);
-                navigate('/');
+        register(values.firstName, values.lastName,values.email, values.password, values.age,values.tac).then(userData => {
+                user.userLoginHandler(userData);
+                navigate("/");
             })
             .catch((error) => {
                 console.log(error.massage);
@@ -160,8 +156,8 @@ const Register = () => {
                             <input className={styles.tac} type="checkbox" name="tac" id="tac" checked={values.tac} onChange={changeHandler} />
                             <label className={styles.tac} htmlFor="tac"> I want to receive inspiration, marketing promotions and updates via email.</label>
                         </div>
-                        <input type="submit" className={styles.btn} value="Sign Up" />
-                        <button className={styles.btnClose} >Cansel</button>
+                        <input type="submit" className={styles.btn} value="Sign Up" disabled={errors.firstName || errors.lastName || errors.email ||
+                             errors.password || errors.age } />
                         <p className={styles.field}>
                             <span>
                                 Already have an account? <Link to="/login">Log in</Link>
@@ -173,4 +169,6 @@ const Register = () => {
         </section>
     );
 }
-export default Register;
+
+const customContextRegister = withUserContext(Register);
+export default customContextRegister;

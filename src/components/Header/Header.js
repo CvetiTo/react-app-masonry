@@ -33,7 +33,8 @@ export const Header = () => {
                     </ul>
                 </nav>              
             </div>  
-           {user.email && <span className={styles.profile}>Hello {user.firstName} {user.lastName}</span>}  
+           {user.email && <span  className={styles.profile}><Link to='/profile'>Hello {user.firstName} {user.lastName}</Link></span>
+           }  
            </>      
     );
 }

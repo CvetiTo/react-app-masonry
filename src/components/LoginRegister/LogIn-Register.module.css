@@ -63,9 +63,9 @@ input.email  {
 }
 
 .btn:hover {
-  color:#314584 ;
+  color: #ff3946;
   background: #fff;
-  border: 2px solid #314584;
+  border: 2px solid #ff3946;
   border-radius: 30px;
   transition: all 0.5s ease;
 } 
@@ -166,4 +166,8 @@ p.field{
 .inputFields{
   width: 100%;
   
+}
+:disabled {
+  opacity: 0.5 !important; 
+  cursor: not-allowed; 
 }

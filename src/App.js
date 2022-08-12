@@ -16,6 +16,7 @@ import LogOut from './components/LoginRegister/LogOut.js';
 import PrivateRoute from './components/common/PrivateRoute.js';
 import { useEffect, useState } from 'react';
 import { getAll } from './services/itemService.js';
+import { Profile } from './components/Profile/Profile.js';
 
 function App() {
   
@@ -38,6 +39,10 @@ const itemRemove = (itemId) => {
   setItems(state => state.filter(x => x._id !== itemId ))
 }
 
+const itemLikes = (itemId, likesData) => {
+  setItems(state => state.map(x => x._id === itemId ? likesData + x : x))
+}
+
   useEffect(() => {
     getAll()
     .then(result => {
@@ -55,7 +60,7 @@ const itemRemove = (itemId) => {
           ? <p>Loading...</p>
           : <Header />}
 
-          <ItemContext.Provider value={{items, addItem, itemEdit, itemRemove }}>
+          <ItemContext.Provider value={{items, addItem, itemEdit, itemRemove, itemLikes }}>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/catalog' element={<SSRMasonry items={items} />} />
@@ -65,6 +70,7 @@ const itemRemove = (itemId) => {
           <Route path='/logout' element={<PrivateRoute><LogOut /></PrivateRoute>} />
           <Route path='/login' element={<LogIn />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/profile' element={<PrivateRoute><Profile /></PrivateRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 

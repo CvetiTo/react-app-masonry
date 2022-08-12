@@ -46,6 +46,8 @@
 
 .card img {
 	border-radius: 8px;
+	max-width: 18.75rem;
+	flex-wrap: wrap;
 }
 .noItems {
 	font-size: 3.6rem;
@@ -74,8 +76,9 @@
 		
 	}
 	.cards {
+		display: flex;
+		flex-direction: column-reverse;
 		flex-wrap: wrap;
-		max-width: 300px;
 		
 	}
 }

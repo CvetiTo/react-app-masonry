@@ -32,3 +32,12 @@ export const useUserContext = () => {
 
   return context;
 };
+
+export const withUserContext = (Component) => {
+  const UserHoc = (props) => {
+    const context = useContext(UserContext);
+    return <Component {...props} user={context} />
+  }
+  
+  return UserHoc;
+};

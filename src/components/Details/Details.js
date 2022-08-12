@@ -50,28 +50,28 @@ export const Details = () => {
         color: 'inherit'
       }
     return (
-        <Card sx={{ maxWidth: 1/2, ml: 50,mt: 10, textAlign: 'center' }}>
+        <Card sx={{ maxWidth: 1/3, ml: 80,mt: 10, textAlign: 'center' }}>
             <CardMedia
                 component="img"
-                height="140"
+                height="420"
                 image={currentItem.img}
                 alt={currentItem.title}
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    {currentItem.category}
+                    Category: {currentItem.category}
                 </Typography>
                 <h5 color='#4A4F48'>Likes: {currentItem.likes}</h5>
-                <h6>{new DateObject(currentItem._createdOn).format("DD.MM.YYYY")} </h6>
+                <h6>Created At: {new DateObject(currentItem._createdOn).format("DD.MM.YYYY")} </h6>
                 <Typography gutterBottom variant="h5" component="div">
-                    {currentItem.title}
+                    Title: {currentItem.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {currentItem.description}
+                    Description: {currentItem.description}
                 </Typography>
             </CardContent>
             {isOwner && 
-            <CardActions sx={{ml:50}}>
+            <CardActions sx={{ml:30}}>
                 <Button size="small" variant="outlined" ><Link to={`/items/${itemId}/edit`} style={linkStyles} >Edit</Link></Button>
                 <Button onClick={() => deleteItemHandler(currentItem._id)} size="small" variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
             </CardActions>
