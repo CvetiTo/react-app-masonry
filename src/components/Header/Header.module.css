@@ -25,7 +25,7 @@
   
   .header .navList .link {
 	color: white;
-	text-decoration: none;
+	
 	font-size: 14px;
   }
 
@@ -39,12 +39,13 @@
 	color: #314584;
 	font-size: 24px;
 	font-weight: 600;
-	border: 2px solid #314584;
+	border-bottom: 1px solid #314584;
 	border-radius: 8px;
 	padding: 10px;
 	display:inline-block;
 	margin-top: 20px;
 	margin-left: 10%;
 	cursor: pointer;
+	text-decoration: none;
 }
   

@@ -16,7 +16,7 @@ export const Profile = () => {
     const isOwner = currentItem._ownerId === user._id;
     return(
        <div  >
-        {user.isAuthenticatedisAuthenticated
+        {user.isAuthenticated
         ? <h1>alabala</h1>
     : <h2>dyra byra</h2>}
         

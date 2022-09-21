@@ -14,6 +14,6 @@ export const edit = (itemId, itemData) => put(`${baseUrl}/${itemId}`, itemData);
 
 export const remove = (itemId) => del(`${baseUrl}/${itemId}`);
 
-export const getByOwner = () => get(`${baseUrl}?sortBy=_ownerId`)
+export const getByOwner = (_ownerId) => get(`${baseUrl}?sortBy=${_ownerId}`);
 
 export const editLikes = (itemId, likesData) => put(`${baseUrl}/${itemId}`, likesData)
